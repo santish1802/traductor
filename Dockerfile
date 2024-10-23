@@ -2,8 +2,6 @@
 FROM python:3.11-slim
 
 # Establece el directorio de trabajo
-WORKDIR /app
-
 # Copia el archivo de la aplicación
 COPY app.py .
 
