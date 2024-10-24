@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request
 from deep_translator import GoogleTranslator
 
@@ -10,7 +11,7 @@ def main_():
     
     # Para solicitudes POST, se espera el texto para traducir
     data = request.get_json()
-    if 'text' not in data:
+    if not data or 'text' not in data:
         return "No text provided", 400
 
     text = data['text']
@@ -23,4 +24,6 @@ def main_():
         return str(e), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Usa el puerto proporcionado por Railway
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
