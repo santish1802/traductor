@@ -3,8 +3,12 @@ from deep_translator import GoogleTranslator
 
 app = Flask(__name__)
 
-@app.route('/translate', methods=['POST'])
-def translate():
+@app.route("/", methods=["GET", "POST"])
+def main_():
+    if request.method == "GET":
+        return "Flask is corriendo."
+    
+    # Para solicitudes POST, se espera el texto para traducir
     data = request.get_json()
     if 'text' not in data:
         return "No text provided", 400
@@ -18,5 +22,5 @@ def translate():
     except Exception as e:
         return str(e), 500
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
